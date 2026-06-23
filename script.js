@@ -20,9 +20,6 @@ setInterval(function ganhoAuto() {
   document.getElementById('ponto').innerHTML = pontuacao;
 }, 1000); 
 
-
-
-
 function compraHabilidade(indice){
     const h = habilidades[indice];
     if (pontuacao >= h.preco)
