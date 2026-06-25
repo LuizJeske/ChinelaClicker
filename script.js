@@ -35,7 +35,8 @@ function compraHabilidade(indice){
         h.comprados += 1;
         h.preco = Math.floor(h.preco * 1.15)
         efeitos()
-        document.getElementById('preco').innerHTML = h.preco; //ID do lugar que vai ficar o preço de cada habilidadde
+        document.getElementById('preco').innerHTML = h.preco; //ID do lugar que vai ficar o preço novo de cada habilidadde
+        document.getElementById('comprados').innerHTML = h.comprados; //ID do lugar que vai ficar a quantidade comprada de cada habilidadde
         document.getElementById('pontoSegundo').innerHTML = pontoSegundo //ID do lugar que vai ficar o ponto por segundo no HTML
         document.getElementById('valorClick').innerHTML = valorClick  //ID do lugar que vai ficar o valor do click no HTML
 }
