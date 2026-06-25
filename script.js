@@ -44,7 +44,7 @@ function compraEvolucao(indice2){
     const e = evolucoes[indice2];
     if (pontuacao >= e.preco)
         pontuacao -= e.preco;
-        e.comprados = true;
+        e.comprado = true;
         efeitos()
         document.getElementById('comprado').innerHTML = e.comprado; //ID do lugar que vai ficar se já foi comprada a evolução
         document.getElementById('pontoSegundo').innerHTML = pontoSegundo //ID do lugar que vai ficar o ponto por segundo no HTML
