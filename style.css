@@ -3,6 +3,7 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
     }
 
     html, body {
@@ -13,7 +14,7 @@
     .grid {
       display: grid;
       grid-template-columns: 3fr 1fr;
-      grid-template-rows: 3fr 1fr;
+      grid-template-rows: 4fr 1fr;
       width: 100%;
       height: 100vh;
     }
@@ -30,7 +31,612 @@
       text-transform: uppercase;
     }
 
-    .area-principal  { background: #5B8CDB; color: #1a3a6e; }
-    .painel-lateral  { background: #E07B54; color: #5a2510; }
-    .barra-inferior  { background: #4DB87A; color: #1a4d30; }
-    .info            { background: #F0C542; color: #5a3d00; }
+/* ============================= ÁREA CENTRAL - PRINCIPAL ============================= */
+
+    .area-principal {
+      background: #5B8CDB;
+      overflow: hidden;
+
+      position: relative;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #fundo {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+    }
+    #titulo {
+      position: absolute;
+      width: 400px;
+      top: -75px;
+      z-index: 2;
+    }
+
+    /* Existe para não dar conflito entre as animações de bater e flutuar. Esse faz flutuar. */
+    #container-chinela {
+      position: absolute;
+      bottom: 50px;
+      z-index: 3;
+      animation: flutuar 3s ease-in-out infinite;
+    }
+    /* Esse, então, faz a animação de bater. */
+    #chinela {
+      width: 350px;
+      cursor: pointer;
+      transition: transform 0.1s;
+      user-select: none;
+      -webkit-user-drag: none; /* Essas duas últimas linhas não deixam eu ficar arrastando a chinela */
+    }
+
+    /* Usada quando o jogador clica. A chinela diminui um pouco. */
+    .batendo {
+      transform:
+        scale(0.90)
+        rotate(-10deg);
+    }
+    /* A chinela sobe e desce lentamente, assim ela nunca para de se mexer. */
+    @keyframes flutuar {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-12px); }
+      100% { transform: translateY(0px); }
+    }
+    #efeitos {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+
+      pointer-events: none; /* Significa que as imagens não vão impedir os cliques na chinela. */
+      z-index: 4;
+    }
+
+
+/* ============================= PAINEL LATERAL - HABILIDADES ============================= */
+
+.painel-lateral {
+  background: #E07B54;
+  flex-direction: column;       
+  align-items: stretch;         /* estica os filhos para ocupar toda a largura */
+  justify-content: flex-start;  
+  padding: 12px 10px;
+  gap: 8px;
+  overflow-y: auto;             /* se tiver muita coisa, aparece barra de scroll */
+}
+
+.painel-lateral-titulo {
+  font-size: 11px;
+  font-weight: 700;
+  color: #5a2510;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+/* Esse é o card de cada habilidade */
+.hab-card {
+  background: white;
+  border-radius: 10px;
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.15s, transform 0.1s;
+  user-select: none;
+}
+
+/* Efeito ao passar o mouse */
+.hab-card:hover {
+  border-color: rgba(0, 0, 0, 0.15);
+  transform: scale(1.02);
+}
+
+/* Efeito ao clicar */
+.hab-card:active {
+  transform: scale(0.97);
+}
+
+/* Quando não tem pontos suficientes, o card fica apagado */
+.hab-card.bloqueado {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* A caixa com os ícones de cada compra */
+.hab-icone {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;   /* não deixa o ícone encolher */
+}
+.hab-icone img { /* Serve para ajustar o ícone no card */
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* mantém a proporção da imagem sem cortar */
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Parte do meio: nome e descrição */
+.hab-info {
+  flex: 1;   /* ocupa todo o espaço que sobrar */
+}
+
+.hab-nome {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.hab-desc {
+  font-size: 11px;
+  color: #666;
+  margin-top: 1px;
+  line-height: 1.4;
+}
+
+/* Parte da direita: preço e quantidade */
+.hab-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.hab-preco {
+  font-size: 12px;
+  font-weight: 700;
+  color: #c17d11;
+  white-space: nowrap;
+}
+
+.hab-qtd {
+  font-size: 11px;
+  color: #888;
+  white-space: nowrap;
+}
+
+
+
+/* ============================= ÁREA INFERIOR - EVOLUÇÕES ============================= */
+
+.barra-inferior {
+  background: #4DB87A;
+  padding: 0;
+  align-items: stretch;
+  justify-content: stretch;
+}
+
+.painel-evolucoes {
+  width: 100%;
+  height: 100%;
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.barra-evolucoes-titulo {
+  font-size: 11px;
+  font-weight: 700;
+  color: #1a4d30;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* Lista horizontal que ocupa toda a largura */
+.evolucoes-lista {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  flex: 1;              /* ocupa toda a altura restante */
+}
+
+/* Cada card ocupa uma fração igual da largura */
+.evo-card {
+  flex: 1;              /* todos os cards dividem o espaço igualmente */
+  background: white;
+  border-radius: 10px;
+  padding: 6px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.15s, transform 0.1s;
+  position: relative;
+  user-select: none;
+  overflow: hidden;     /* garante que nada vaze para fora do card */
+}
+
+.evo-card:hover {
+  border-color: rgba(0,0,0,0.15);
+  transform: scale(1.03);
+}
+
+.evo-card:active {
+  transform: scale(0.97);
+}
+
+.evo-card.bloqueado {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.evo-card.comprado {
+  background: #2A7A3B;   /* verde escuro */
+  border-color: #2A7A3B;
+  cursor: default;
+}
+.evo-card.comprado:hover {
+  transform: none;
+  border-color: #2A7A3B;
+}
+/* Nome e descrição ficam brancos para contrastar com o fundo verde */
+.evo-card.comprado .evo-nome {
+  color: white;
+}
+.evo-card.comprado .evo-desc {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* Ícone ✔ no canto superior direito */
+.evo-check {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 18px;
+  height: 18px;
+  background: #3cb043;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: white;
+  font-weight: 700;
+}
+
+.evo-icone {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.evo-icone img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  -webkit-user-drag: none;
+}
+
+.evo-nome {
+  font-size: 11px;
+  font-weight: 700;
+  color: #1a1a1a;
+  text-align: center;
+}
+
+.evo-desc {
+  font-size: 9px;
+  color: #666;
+  text-align: center;
+  line-height: 1.3;
+}
+
+.evo-preco {
+  font-size: 11px;
+  font-weight: 700;
+  color: #c17d11;
+}
+/* Texto "Adquirido" embaixo */
+.evo-preco.comprado-label {
+  color: #90EE90;   /* verde claro para contrastar com o fundo escuro */
+  font-size: 11px;
+  font-weight: 700;
+}
+
+
+
+/* ============================= ÁREA DA BORDA - ESTATÍSTICAS ============================= */
+
+.info {
+  background: #F0C542;
+  color: #5a3d00;
+  border: none;
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+}
+.painel-info {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-family: sans-serif;
+}
+
+.pontuacao {
+  font-size: 28px;
+  font-weight: 800;
+  color: #5a3d00;
+  text-align: center;
+}
+/* Tabela de estatísticas */
+.estatisticas {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: rgba(0,0,0,0.08);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+.stat-linha {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: #7a5000;
+}
+.stat-valor {
+  font-weight: 700;
+  color: #5a3d00;
+}
+
+.barra-progresso {
+  width: 100%;
+  height: 14px;
+  background: rgba(0,0,0,0.2);
+  border-radius: 20px;
+  overflow: hidden;
+}
+#progresso {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #3cb043, #78d64b);
+  transition: width 0.4s;
+}
+.progresso-label {
+  font-size: 11px;
+  color: #7a5000;
+  text-align: center;
+}
+
+
+
+/* ============================= EVENTO DO CHEFE DA MÁFIA ============================= */
+
+/* O overlay é a camada escura que cobre a tela toda. */
+#overlay-evento {
+  display: none;              /* escondido por padrão */
+  position: fixed;
+  inset: 0;                   /* atalho para top/right/bottom/left: 0 */
+  background: rgba(0,0,0,0.6);
+  z-index: 100;
+}
+
+/* Área que agrupa o chefe e o balão juntos na parte inferior esquerda */
+#chefe-area {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: flex-end;
+  gap: 0;
+}
+
+/* Imagem do chefe — começa fora da tela (translateX negativo)
+   e a animação "entrarChefe" a desliza para dentro */
+#chefe-img {
+  width: 180px;
+  height: 180px;
+  object-fit: contain;
+  -webkit-user-drag: none;
+  filter: drop-shadow(4px 4px 8px rgba(0,0,0,0.5));
+  animation: entrarChefe 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Animação de entrada: desliza da esquerda para a posição normal */
+@keyframes entrarChefe {
+  from { transform: translateX(-220px); }
+  to   { transform: translateX(0px); }
+}
+
+/* Balão de diálogo branco ao lado do chefe */
+#balao-chefe {
+  background: white;
+  border-radius: 16px;
+  padding: 16px 18px;
+  max-width: 300px;
+  margin-bottom: 50px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+
+  /* O balão aparece com fade após o chefe entrar.
+     "animation-delay: 0.4s" espera o chefe chegar antes de aparecer */
+  animation: fadeInBalao 0.4s 0.4s ease both;
+}
+
+/* Animação do balão: sobe levemente enquanto aparece */
+@keyframes fadeInBalao {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Setinha do balão apontando para o chefe (à esquerda) */
+#balao-chefe::before {
+  content: "";
+  position: absolute;
+  left: -18px;
+  bottom: 75px;
+  border: 8px solid transparent;
+  border-right-color: white;  /* só a borda direita tem cor, formando a setinha */
+}
+
+#balao-nome {
+  font-size: 13px;
+  font-weight: 800;
+  color: #8B0000;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-family: sans-serif;
+}
+
+#balao-texto {
+  font-size: 13px;
+  color: #333;
+  line-height: 1.6;
+  margin-bottom: 14px;
+  font-family: sans-serif;
+}
+
+#balao-botoes {
+  display: flex;
+  gap: 8px;
+}
+
+/* Botão verde de aceitar */
+#btn-aceitar {
+  flex: 1;
+  padding: 8px 0;
+  background: #2A7A3B;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: sans-serif;
+  transition: transform 0.1s;
+}
+#btn-aceitar:active { transform: scale(0.97); }
+#btn-aceitar:hover { transform: scale(1.04); }
+
+/* Botão vermelho de recusar */
+#btn-recusar {
+  flex: 1;
+  padding: 8px 0;
+  background: #8B0000;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: sans-serif;
+  transition: transform 0.1s;
+}
+#btn-recusar:hover { transform: scale(1.04); }
+#btn-recusar:active { transform: scale(0.97); }
+
+
+/* ============================= TELA FINAL DO JOGO ============================= */
+
+/* A tela final cobre tudo com z-index altíssimo.
+  Começa fora da tela (translateY(-100%)) e desce até cobrir tudo via animação. */
+#tela-final {
+  display: none;              /* escondida por padrão */
+  position: fixed;
+  inset: 0;
+  z-index: 200;               /* fica na frente de tudo, inclusive do overlay do chefe */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Quando o JavaScript adiciona a classe "ativo",
+   a tela aparece e a animação começa */
+#tela-final.ativo {
+  display: flex;
+  animation: descerTela 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* A imagem cobre a tela toda como fundo */
+#final-imagem {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;          /* cobre tudo sem distorcer */
+  -webkit-user-drag: none;
+}
+
+/* Animação: a tela desce de cima até cobrir tudo */
+@keyframes descerTela {
+  from { transform: translateY(-100%); }
+  to   { transform: translateY(0%); }
+}
+
+/* Caixa com título, texto e botão — fica em cima da imagem */
+#final-conteudo {
+  position: relative;         /* fica na frente da imagem */
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 32px;
+  background: rgba(0, 0, 0, 0.55);   /* fundo escuro semitransparente para legibilidade */
+  border-radius: 20px;
+  max-width: 500px;
+  text-align: center;
+
+  /* Aparece com fade após a imagem parar (delay de 0.7s) */
+  animation: fadeInConteudo 0.5s 0.7s ease both;
+}
+
+@keyframes fadeInConteudo {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+#final-titulo {
+  font-size: 32px;
+  font-weight: 900;
+  color: white;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+  font-family: sans-serif;
+  line-height: 1.2;
+}
+
+#final-texto {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
+  font-family: sans-serif;
+  line-height: 1.6;
+}
+
+#btn-reiniciar {
+  margin-top: 8px;
+  padding: 12px 28px;
+  border: none;
+  width: 300px;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+#btn-reiniciar:hover  { transform: scale(1.05); }
+#btn-reiniciar:active { transform: scale(0.97); }
