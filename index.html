@@ -6,31 +6,275 @@
   <title>Chinela Simulator</title>
 <link rel="stylesheet" href="style.css">
 
+<audio id="musica" src="mid/Chinela_Clicker.mp3" loop autoplay></audio>
+
 </head>
 <body>
-  <div class="grid"> <!-- Tela Inteira-->
+  <div class="grid"> <!-- Tela Inteira -->
 
-    <div class="cell area-principal">Jogo <!-- Tela Principal do jogo-->
+    <div class="cell area-principal">
 
-        <h2>Pontuação: <span id="ponto">0</span></h2>
-        <img src="chineloph.jpg" onclick="clicar()">
+      <!-- Fundo -->
+      <img
+        src="mid/fundo.png"
+        id="fundo">
+
+      <!-- Título do jogo -->
+      <img
+        src="mid/titulo.png"
+        id="titulo">
+
+      <!-- Chinela -->
+      <div id="container-chinela">
+
+        <img
+          src="mid/chinela_madeira.png"
+          id="chinela"
+          onclick="clicar()">
+
+      </div>
+
+      <!-- Efeitos da barata morta -->
+      <div id="efeitos"></div>
 
     </div>
 
-    <div class="cell painel-lateral">Painel Lateral 
+    <!--============================== Painel Lateral ==============================-->
+
+    <div class="cell painel-lateral"> 
+      <div class="painel-lateral-titulo">⚔️ Habilidades</div>
+
+      <!-- Cada card chama compraHabilidade() com o número da habilidade no array -->
+      <!-- 0 = café, 1 = chat, 2 = baratoeira, 3 = curso, 4 = dedetizador -->
+
+      <div class="hab-card" id="hab-0" onclick="compraHabilidade(0)">
+        <div class="hab-icone" style="background: #6B3A2A;"> <!-- Café - marrom -->
+          <img src="mid/cafe.png" alt="Café">
+        </div>
+        <div class="hab-info">
+          <div class="hab-nome">Café</div>
+          <div class="hab-desc">Dá mais energia e disposição para matar baratas.</div>
+        </div>
+        <div class="hab-meta">
+          <div class="hab-preco" id="preco-0">🪙 2</div>
+          <div class="hab-qtd" id="qtd-0">×0</div>
+        </div>
+      </div>
+
+      <div class="hab-card" id="hab-1" onclick="compraHabilidade(1)">
+        <div class="hab-icone" style="background: #2D6A4F;">  <!-- ChatGPT - verde -->
+          <img src="mid/chatgpt.png" alt="ChatGPT">
+        </div>
+        <div class="hab-info">
+          <div class="hab-nome">ChatGPT</div>
+          <div class="hab-desc">Perguntar ao ChatGPT sobre as melhores técnicas contra baratas.</div>
+        </div>
+        <div class="hab-meta">
+          <div class="hab-preco" id="preco-1">🪙 7</div>
+          <div class="hab-qtd" id="qtd-1">×0</div>
+        </div>
+      </div>
+
+      <div class="hab-card" id="hab-2" onclick="compraHabilidade(2)">
+        <div class="hab-icone" style="background: #1A4A7A;">  <!-- Baratoeira - azul -->
+          <img src="mid/baratoeira.png" alt="Baratoeira">
+        </div>
+        <div class="hab-info">
+          <div class="hab-nome">Baratoeira</div>
+          <div class="hab-desc">Instalar dispositivos altamente tecnológicos para capturar baratas espertas.</div>
+        </div>
+        <div class="hab-meta">
+          <div class="hab-preco" id="preco-2">🪙 15</div>
+          <div class="hab-qtd" id="qtd-2">×0</div>
+        </div>
+      </div>
+
+      <div class="hab-card" id="hab-3" onclick="compraHabilidade(3)">
+        <div class="hab-icone" style="background: #4A2D7A;">  <!-- Curso - roxo -->
+          <img src="mid/curso.png" alt="Curso Online">
+        </div>
+        <div class="hab-info">
+          <div class="hab-nome">Curso Online</div>
+          <div class="hab-desc">Utilizar novos conhecimentos para melhorar a performance.</div>
+        </div>
+        <div class="hab-meta">
+          <div class="hab-preco" id="preco-3">🪙 40</div>
+          <div class="hab-qtd" id="qtd-3">×0</div>
+        </div>
+      </div>
+
+      <div class="hab-card" id="hab-4" onclick="compraHabilidade(4)">
+        <div class="hab-icone" style="background: #7A3D1A;">  <!-- Dedetizador - laranja-->
+          <img src="mid/dedetizador.png" alt="Dedetizador">
+        </div>
+        <div class="hab-info">
+          <div class="hab-nome">Dedetizador</div>
+          <div class="hab-desc">Fazer bicos para aprender ao lado dos melhores mestres.</div>
+        </div>
+        <div class="hab-meta">
+          <div class="hab-preco" id="preco-4">🪙 75</div>
+          <div class="hab-qtd" id="qtd-4">×0</div>
+        </div>
+      </div>
 
     </div>
 
-    <div class="cell barra-inferior">Barra Inferior
+<!--============================== Barra Inferior ==============================-->
 
+    <div class="cell barra-inferior">
+      <div class="painel-evolucoes">
+
+        <div class="barra-evolucoes-titulo">👟 Evoluções</div>
+
+        <div class="evolucoes-lista">
+
+          <div class="evo-card" id="evo-0" onclick="compraEvolucao(0)">
+            <div class="evo-icone">
+              <img src="mid/chinela_madeira.png" alt="Madeira" draggable="false">
+            </div>
+            <div class="evo-nome">Madeira</div>
+            <div class="evo-desc">Pau pra toda obra.</div>
+            <div class="evo-preco" id="evo-preco-0">🪙 Inicial</div>
+          </div>
+
+          <div class="evo-card" id="evo-1" onclick="compraEvolucao(1)">
+            <div class="evo-icone">
+              <img src="mid/chinela_remendada.png" alt="Remendada" draggable="false">
+            </div>
+            <div class="evo-nome">Remendada</div>
+            <div class="evo-desc">Clássica e funcional, prego pode causar tétano.</div>
+            <div class="evo-preco" id="evo-preco-1">🪙 35</div>
+          </div>
+
+          <div class="evo-card" id="evo-2" onclick="compraEvolucao(2)">
+            <div class="evo-icone">
+              <img src="mid/chinela_avaianos.png" alt="Avaianos" draggable="false">
+            </div>
+            <div class="evo-nome">Avaianos</div>
+            <div class="evo-desc">O queridinho dos brasileiros.</div>
+            <div class="evo-preco" id="evo-preco-2">🪙 90</div>
+          </div>
+
+          <div class="evo-card" id="evo-3" onclick="compraEvolucao(3)">
+            <div class="evo-icone">
+              <img src="mid/chinela_raider.png" alt="Raider" draggable="false">
+            </div>
+            <div class="evo-nome">Raider</div>
+            <div class="evo-desc">Maior e robusto contra inimigos.</div>
+            <div class="evo-preco" id="evo-preco-3">🪙 160</div>
+          </div>
+
+          <div class="evo-card" id="evo-4" onclick="compraEvolucao(4)">
+            <div class="evo-icone">
+              <img src="mid/chinela_doro.png" alt="D'Oro" draggable="false">
+            </div>
+            <div class="evo-nome">D'Oro</div>
+            <div class="evo-desc">O puro luxo da chinelaria.</div>
+            <div class="evo-preco" id="evo-preco-4">🪙 240</div>
+          </div>
+
+          <div class="evo-card" id="evo-5" onclick="compraEvolucao(5)">
+            <div class="evo-icone">
+              <img src="mid/chinela_posapocaliptica.png" alt="Pós-Apocalíptica" draggable="false">
+            </div>
+            <div class="evo-nome">Pós-Apoc.</div>
+            <div class="evo-desc">Reforçada contra todo tipo de problema.</div>
+            <div class="evo-preco" id="evo-preco-5">🪙 340</div>
+          </div>
+
+        </div>
+      </div>
     </div>
 
-    <div class="cell info">Evento <!-- Tela de Progressão do evento-->
+<!--============================== Estatísticas ==============================-->
+
+  <div class="cell info">
+    <div class="painel-info">
+
+      <div class="pontuacao">
+        🏆 <span id="pontuacaoGrande">0.0</span>
+      </div>
+
+      <div class="estatisticas">
+        <div class="stat-linha">
+          <span>💥 Baratas eliminadas</span>
+          <span class="stat-valor" id="baratas">0</span>
+        </div>
+        <div class="stat-linha">
+          <span>👆 Por clique</span>
+          <span class="stat-valor" id="valorClick">0.1</span>
+        </div>
+        <div class="stat-linha">
+          <span>⚡ Por segundo</span>
+          <span class="stat-valor" id="pontoSegundo">0.0</span>
+        </div>
+      </div>
+
+      <div class="barra-progresso">
+        <div id="progresso"></div>
+      </div>
+
+      <div class="progresso-label">
+        <span id="pontuacaoProgresso">0.0</span> / 500
+      </div>
+
+      <div id="evento"></div>
 
     </div>
+  </div>  
+</div>
+
+<!-- EVENTO DO CHEFE DA MÁFIA -->
+<!-- Esse overlay cobre a tela toda quando o evento acontece -->
+<!-- Fica escondido por padrão (display: none) e aparece via JavaScript -->
+<div id="overlay-evento">
+
+  <div id="chefe-area">
+
+    <img src="mid/chefe.png" id="chefe-img" draggable="false" alt="Chefe da Máfia">
+
+    <!-- Balão de diálogo que aparece ao lado do chefe -->
+    <div id="balao-chefe">
+
+      <div id="balao-nome">🎩 Chefe da Máfia</div>
+
+      <div id="balao-texto">
+        "Vejo que você é muito eficiente eliminando nossa espécie.
+        Gostaria de investir seus bens em nossos negócios?"
+      </div>
+
+      <div id="balao-botoes">
+        <button id="btn-aceitar" onclick="aceitarAcordo()">✅ Aceitar</button>
+        <button id="btn-recusar" onclick="recusarAcordo()">❌ Recusar</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- TELA FINAL DO JOGO -->
+<!-- Fica escondida e desce de cima quando o jogo termina -->
+<div id="tela-final">
+
+  <!-- Imagem do final (bom ou ruim) — o src é trocado pelo JavaScript -->
+  <img src="" id="final-imagem" draggable="false" alt="Final do jogo">
+
+  <!-- Caixa de texto e botão que aparecem após a imagem parar -->
+  <div id="final-conteudo">
+
+    <!-- Título do final — muda dependendo da escolha do jogador -->
+    <div id="final-titulo"></div>
+
+    <!-- Texto explicando o final -->
+    <div id="final-texto"></div>
+
+    <!-- Botão que reinicia o jogo — location.reload() recarrega a página -->
+    <img src="mid/botao.png" alt="Jogar Novamente" id="btn-reiniciar" onclick="location.reload()" draggable="false">
 
   </div>
 
-  <script src="script.js"></script>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
