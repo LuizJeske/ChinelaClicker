@@ -161,6 +161,7 @@ function criarNumero() {
     numero.style.fontWeight = "bold";
     numero.style.textShadow = "2px 2px 5px black";
     numero.style.pointerEvents = "none";
+    numero.style.visibility = "hidden"; // fica invisível até posicionar
 
     // Descobre onde a chinela está
     const posicao = chinela.getBoundingClientRect();
@@ -171,8 +172,10 @@ function criarNumero() {
 
     // Faz o número subir para um lado aleatório
     const moverX = (Math.random() * -300 + 130);
-
     document.body.appendChild(numero);
+
+    // Só torna visível depois de estar posicionado
+    numero.style.visibility = "visible";
 
     numero.animate(
         [
@@ -207,11 +210,15 @@ function criarBarata(x, y) {
     barata.style.width ="70px";
     barata.style.zIndex = "4";
     barata.style.pointerEvents = "none";
+    barata.style.visibility = "hidden"; // fica invisível até posicionar
     
     barata.style.left = x + "px";
     barata.style.top = y + "px";
 
     document.body.appendChild(barata);
+
+    // Só torna visível depois de estar posicionado
+    barata.style.visibility = "visible";
 
     barata.animate(
         [
@@ -246,11 +253,15 @@ function criarAlma(x, y) {
     alma.style.width = "70px";
     alma.style.zIndex = "4";
     alma.style.pointerEvents = "none";
+    alma.style.visibility = "hidden"; // fica invisível até posicionar
 
     alma.style.left = x + "px";
     alma.style.top = y + "px";
 
     document.body.appendChild(alma);
+
+    // Só torna visível depois de estar posicionado
+    alma.style.visibility = "visible";
 
     alma.animate(
         [
