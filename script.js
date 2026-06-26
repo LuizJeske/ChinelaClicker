@@ -1,13 +1,14 @@
 let pontuacao = 0;
-let valorClick = 0.5;
+let valorClick = 0.1;
 let pontoSegundo = 0;
+let clicksFeitos = 0
 
 let habilidades = [
-    {nome: "cafe",         preco: 10,     comprados: 0},
-    {nome: "chat",         preco: 35,     comprados:0},
-    {nome: "baratoeira",   preco: 70,     comprados:0},
-    {nome: "curso",        preco: 200,    comprados:0},
-    {nome: "dedetizador",  preco: 350,    comprados:0},
+    {nome: "cafe",         preco: 2,     comprados: 0},
+    {nome: "chat",         preco: 7,     comprados:0},
+    {nome: "baratoeira",   preco: 15,    comprados:0},
+    {nome: "curso",        preco: 40,    comprados:0},
+    {nome: "dedetizador",  preco: 75,    comprados:0},
 ];
 
 let evolucoes = [
@@ -21,11 +22,18 @@ let evolucoes = [
 function clicar(){
     pontuacao = pontuacao + valorClick;
     document.getElementById('ponto').innerHTML = pontuacao;
+    clicksFeitos = clicksFeitos + 1
+    if (pontuação >= 500){
+      
+    }
 }
 
 setInterval(function ganhoAuto() {
   pontuacao += pontoSegundo;
   document.getElementById('ponto').innerHTML = pontuacao;
+      if (pontuação >= 500){
+      
+    }
 }, 1000); 
 
 function compraHabilidade(indice){
@@ -58,38 +66,38 @@ function efeitos(){
 // Os valores são resetados para a base antes de recalcular.
 // Isso é necessário pois cada if soma em cima do anterior,
 // e sem o reset os valores acumulariam errado a cada compra.
-    valorClick = 0.5; 
+    valorClick = 0.1; 
     pontoSegundo = 0; 
     //fazer efeitos das habilidades funcionarem
     if (habilidades[0].comprados > 0) {
-    valorClick += habilidades[0].comprados * 0.5; // cada Café te da +0.5 Valor de Click
+    valorClick += habilidades[0].comprados * 0.1; // cada Café te da +0.1 Valor de Click
   }
     if (habilidades[1].comprados > 0) {
-    pontoSegundo += habilidades[1].comprados * 0.5; // cada ChatGPT vale +0.5 por segundo
+    pontoSegundo += habilidades[1].comprados * 0.1; // cada ChatGPT vale +0.1 por segundo
   }
     if (habilidades[2].comprados > 0) {
-    pontoSegundo += habilidades[2].comprados * 2.5; // cada Baratoeira vale +2.5 por segundo
+    pontoSegundo += habilidades[2].comprados * 0.5; // cada Baratoeira vale +2.5 por segundo
   }
     if (habilidades[3].comprados > 0) {
-    valorClick += habilidades[3].comprados * 5; // cada Curso vale +5 por click
+    valorClick += habilidades[3].comprados * 0.5; // cada Curso vale 0.5 por click
   }
     if (habilidades[4].comprados > 0) {
-    pontoSegundo += habilidades[4].comprados * 10; // cada Dedetizador vale +5 por segundo
+    pontoSegundo += habilidades[4].comprados * 1; // cada Dedetizador vale +1 por segundo
   }
   //fazer efeitos das evoluções funcionarem
     if (evolucoes[0].comprado === true) {
-    valorClick = valorClick + 2; // Chinela Remendada te da +2 Valor de Click
+    pontoSegundo = pontoSegundo +0.5 ; // Chinela Remendada te da +0.5 pontos por segundo
   }
     if (evolucoes[1].comprado === true) {
-    valorClick = valorClick + 6; // Chinela Avaianos te da +6 Valor de Click
+    valorClick = valorClick + 0.5; // Chinela Avaianos te da +005 Valor de Click
   }
     if (evolucoes[2].comprado === true) {
-    pontoSegundo = pontoSegundo *2 ; // Chinela Raider dobra seus pontos por segundo
+    pontoSegundo = pontoSegundo *1.25 ; // Chinela Raider soma 1/4 dos pontos por segundo nos seus pontos por segundo
   }
     if (evolucoes[3].comprado === true) {
-    valorClick = valorClick + 20; // Chinela d'ouro te da +6 Valor de Click
+    valorClick = valorClick + 1; // Chinela d'ouro te da +1 Valor de Click
   }
     if (evolucoes[4].comprado === true) {
-    valorClick = valorClick + 50; // Chinela Pós Apocalíptica te da +6 Valor de Click
+    valorClick = valorClick *1,25; // Chinela Pós Apocalíptica te da +50 Valor de Click
   }
 }
