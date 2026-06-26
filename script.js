@@ -190,9 +190,7 @@ function criarNumero() {
                 opacity: 0
             }
         ],
-        {
-            duration: 800
-        }
+        { duration: 800, fill: "forwards" } // fill: "forwards" mantém o estado final
     );
 
     setTimeout(() => {
@@ -233,9 +231,7 @@ function criarBarata(x, y) {
             opacity: 0
           }
         ],
-        {
-          duration: 700
-        }
+        { duration: 700, fill: "forwards" } // mantém invisível até o remove()
       );
 
     setTimeout(() => {
@@ -274,9 +270,7 @@ function criarAlma(x, y) {
                 opacity: 0
             }
         ],
-        {
-            duration: 1000
-        }
+        { duration: 1000, fill: "forwards" } // mantém invisível até o remove()
     );
 
     setTimeout(() => {
