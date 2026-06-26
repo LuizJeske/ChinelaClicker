@@ -62,7 +62,7 @@ function efeitos(){
     pontoSegundo = 0; 
     //fazer efeitos das habilidades funcionarem
     if (habilidades[0].comprados > 0) {
-    valorClick += habilidades[0].comprados * 0.5; // cada Café te da +5 Valor de Click
+    valorClick += habilidades[0].comprados * 0.5; // cada Café te da +0.5 Valor de Click
   }
     if (habilidades[1].comprados > 0) {
     pontoSegundo += habilidades[1].comprados * 0.5; // cada ChatGPT vale +0.5 por segundo
